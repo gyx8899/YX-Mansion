@@ -43,5 +43,7 @@
 		"truetype",
 		"zhongyingwen",
 		"zhuti"
-	]
+	],
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"npm-scripts.showStartNotification": false
 }
