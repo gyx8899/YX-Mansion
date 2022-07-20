@@ -5,6 +5,10 @@ export interface MetaProps {
 	key?: string;
 }
 
+export interface AnyProps {
+	[propName: string]: any;
+}
+
 export interface RouteObject {
 	caseSensitive?: boolean;
 	children?: RouteObject[];
@@ -12,5 +16,6 @@ export interface RouteObject {
 	index?: boolean;
 	path?: string;
 	meta?: MetaProps;
-	isLink?: string;
+	linkUrl?: string;
+	isBlank?: boolean;
 }

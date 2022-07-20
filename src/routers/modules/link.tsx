@@ -46,6 +46,15 @@ const linkRouter: Array<RouteObject> = [
 					title: "个人博客",
 					key: "myBlog"
 				}
+			},
+			{
+				path: "/link/default",
+				element: lazyLoad(React.lazy(() => import("@/views/link/default/index"))),
+				meta: {
+					requiresAuth: true,
+					title: "内嵌页面",
+					key: "iframe"
+				}
 			}
 		]
 	}

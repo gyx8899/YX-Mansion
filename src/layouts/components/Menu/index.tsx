@@ -91,7 +91,7 @@ const LayoutMenu = (props: any) => {
 	const navigate = useNavigate();
 	const clickMenu: MenuProps["onClick"] = ({ key }: { key: string }) => {
 		const route = searchRoute(key, props.menuList);
-		if (route.isLink) window.open(route.isLink, "_blank");
+		if (route.isBlank) window.open(route.linkUrl, "_blank");
 		navigate(key);
 	};
 
