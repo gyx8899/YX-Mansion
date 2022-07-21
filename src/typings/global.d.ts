@@ -1,7 +1,13 @@
+// * Object
+declare interface AnyKeyObject {
+	[propName: string]: any;
+}
+
 // * Menu
 declare namespace Menu {
 	interface MenuOptions {
 		path: string;
+		pathParams: AnyKeyObject;
 		title: string;
 		icon?: string;
 		isLink?: string;

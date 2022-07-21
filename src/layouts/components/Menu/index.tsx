@@ -53,13 +53,26 @@ const LayoutMenu = (props: any) => {
 	const addIcon = (name: string) => {
 		return React.createElement(customIcons[name]);
 	};
+	const addPathParams = (path: string, params: AnyKeyObject = {}) => {
+		if (!params || Object.keys(params).length === 0) {
+			return path;
+		}
+		const paramsString = Object.keys(params)
+			.map(key => `${key}=${encodeURIComponent(params[key])}`)
+			.join("&");
+		return `${path}?${paramsString}`;
+	};
 
 	// 处理后台返回菜单 key 值为 antd 菜单需要的 key 值
 	const deepLoopFloat = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
 		menuList.forEach((item: Menu.MenuOptions) => {
 			// 下面判断代码解释 *** !item?.children?.length   ==>   (!item.children || item.children.length === 0)
-			if (!item?.children?.length) return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
-			newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopFloat(item.children)));
+			const itemPath = addPathParams(item?.path, item?.pathParams);
+			console.log("itemPath: " + itemPath);
+			if (!item?.children?.length) {
+				return newArr.push(getItem(item.title, itemPath, addIcon(item.icon!)));
+			}
+			newArr.push(getItem(item.title, itemPath, addIcon(item.icon!), deepLoopFloat(item.children)));
 		});
 		return newArr;
 	};
