@@ -103,8 +103,12 @@ const LayoutMenu = (props: any) => {
 	// 点击当前菜单跳转页面
 	const navigate = useNavigate();
 	const clickMenu: MenuProps["onClick"] = ({ key }: { key: string }) => {
+		console.log("Menu", key, props.menuList);
 		const route = searchRoute(key, props.menuList);
-		if (route.isBlank) window.open(route.linkUrl, "_blank");
+		if (route.isBlank) {
+			window.open(route.linkUrl, "_blank");
+			return;
+		}
 		navigate(key);
 	};
 
