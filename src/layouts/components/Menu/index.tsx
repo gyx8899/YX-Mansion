@@ -6,10 +6,11 @@ import { setMenuList } from "@/redux/modules/menu/action";
 import { setBreadcrumbList } from "@/redux/modules/breadcrumb/action";
 import { setAuthRouter } from "@/redux/modules/auth/action";
 import { getMenuList } from "@/api/modules/login";
+import { addIcon } from "@/layouts/util";
 import { connect } from "react-redux";
 import type { MenuProps } from "antd";
-import * as Icons from "@ant-design/icons";
 import Logo from "./components/Logo";
+
 import "./index.less";
 
 const LayoutMenu = (props: any) => {
@@ -48,11 +49,6 @@ const LayoutMenu = (props: any) => {
 		} as MenuItem;
 	};
 
-	// 动态渲染 Icon 图标
-	const customIcons: { [key: string]: any } = Icons;
-	const addIcon = (name: string) => {
-		return React.createElement(customIcons[name]);
-	};
 	const addPathParams = (path: string, params: AnyKeyObject = {}) => {
 		if (!params || Object.keys(params).length === 0) {
 			return path;
@@ -68,7 +64,6 @@ const LayoutMenu = (props: any) => {
 		menuList.forEach((item: Menu.MenuOptions) => {
 			// 下面判断代码解释 *** !item?.children?.length   ==>   (!item.children || item.children.length === 0)
 			const itemPath = addPathParams(item?.path, item?.pathParams);
-			console.log("itemPath: " + itemPath);
 			if (!item?.children?.length) {
 				return newArr.push(getItem(item.title, itemPath, addIcon(item.icon!)));
 			}
@@ -103,11 +98,9 @@ const LayoutMenu = (props: any) => {
 	// 点击当前菜单跳转页面
 	const navigate = useNavigate();
 	const clickMenu: MenuProps["onClick"] = ({ key }: { key: string }) => {
-		console.log("Menu", key, props.menuList);
 		const route = searchRoute(key, props.menuList);
-		if (route.isBlank) {
-			window.open(route.linkUrl, "_blank");
-			return;
+		if (route.blankUrl) {
+			window.open(route.blankUrl, "_blank");
 		}
 		navigate(key);
 	};

@@ -16,6 +16,6 @@ export interface RouteObject {
 	index?: boolean;
 	path?: string;
 	meta?: MetaProps;
-	linkUrl?: string;
-	isBlank?: boolean;
+	blankUrl?: string;
+	icon?: string;
 }

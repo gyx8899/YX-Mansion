@@ -7,7 +7,7 @@ import * as types from "@/redux/mutation-types";
 const tabsState: TabsState = {
 	// tabsActive 其实没啥用，使用 pathname 就可以了😂
 	tabsActive: HOME_URL,
-	tabsList: [{ title: "首页", path: HOME_URL }]
+	tabsList: [{ title: "首页", path: HOME_URL, icon: "HomeFilled" }]
 };
 
 // tabs reducer

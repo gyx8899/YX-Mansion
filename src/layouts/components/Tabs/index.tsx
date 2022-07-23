@@ -1,5 +1,4 @@
 import { Tabs, message } from "antd";
-import { HomeFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { HOME_URL } from "@/config/config";
@@ -7,6 +6,7 @@ import { connect } from "react-redux";
 import { setTabsList } from "@/redux/modules/tabs/action";
 import { routerArray } from "@/routers";
 import { searchRoute } from "@/utils/util";
+import { addIcon } from "@/layouts/util";
 import MoreButton from "./components/MoreButton";
 import "./index.less";
 
@@ -30,7 +30,7 @@ const LayoutTabs = (props: any) => {
 		const route = searchRoute(pathname, routerArray);
 		let tabsList = JSON.parse(JSON.stringify(props.tabsList));
 		if (props.tabsList.every((item: any) => item.path !== route.path)) {
-			tabsList.push({ title: route.meta!.title, path: route.path });
+			tabsList.push({ title: route.meta!.title, path: route.path, icon: route.icon });
 		}
 		props.setTabsList(tabsList);
 		setActiveValue(pathname);
@@ -68,7 +68,7 @@ const LayoutTabs = (props: any) => {
 							key={item.path}
 							tab={
 								<span>
-									{item.path == HOME_URL ? <HomeFilled /> : ""}
+									{item.icon && addIcon(item.icon)}
 									{item.title}
 								</span>
 							}

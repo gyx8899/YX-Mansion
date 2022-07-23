@@ -81,7 +81,14 @@ export const getOpenKeys = (path: string) => {
 export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
 	let result: RouteObject = {};
 	for (let item of routes) {
-		if (item.path === path) return item;
+		if (item.path === path) {
+			return item;
+		}
+		const splitPath = item.path && item.path.split(":");
+		if (splitPath && splitPath.length > 1 && path.startsWith(splitPath[0])) {
+			// 处理路由规则中含有 :id 等参数情况
+			return item;
+		}
 		if (item.children) {
 			const res = searchRoute(path, item.children);
 			if (Object.keys(res).length) result = res;

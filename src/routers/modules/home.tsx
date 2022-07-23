@@ -11,6 +11,7 @@ const homeRouter: Array<RouteObject> = [
 		children: [
 			{
 				path: "/home/index",
+				icon: "HomeFilled",
 				// element: lazyLoad(React.lazy(() => import("@/views/home/index"))),
 				element: <Home />,
 				meta: {

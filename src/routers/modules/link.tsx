@@ -12,21 +12,13 @@ const linkRouter: Array<RouteObject> = [
 		},
 		children: [
 			{
-				path: "/link/default",
-				element: lazyLoad(React.lazy(() => import("@/views/link/default/index"))),
+				path: "/link/:id",
+				icon: "PaperClip",
+				element: lazyLoad(React.lazy(() => import("@/views/link/index"))),
 				meta: {
 					requiresAuth: true,
 					title: "Link 页面",
-					key: "default"
-				}
-			},
-			{
-				path: "/link/iFrame",
-				element: lazyLoad(React.lazy(() => import("@/views/link/iFrame/index"))),
-				meta: {
-					requiresAuth: true,
-					title: "内嵌页面",
-					key: "iframe"
+					key: "linkPage"
 				}
 			}
 		]
