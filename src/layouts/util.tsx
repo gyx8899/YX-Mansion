@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizedString } from "@/utils/index";
 import * as Icons from "@ant-design/icons";
 
 // 动态渲染 Icon 图标
@@ -11,8 +12,14 @@ export const ICON_TYPE = {
 	TwoTone: "TwoTone"
 };
 
-export const addIcon = (name: string, type: string = ICON_TYPE.Outlined) => {
-	const _name = name.replace(/^\w/, c => c.toUpperCase());
-	const icon = customIcons[_name] || customIcons[`${_name}${type}`] || customIcons[`Question${type}`];
+const iconOptions: AnyKeyObject = { type: ICON_TYPE.Outlined, defaultName: "Question" };
+
+export const addIcon = (name: string, options: AnyKeyObject = iconOptions) => {
+	const _name = capitalizedString(name);
+	const _options = { ...iconOptions, ...options };
+	const icon =
+		customIcons[_name] ||
+		customIcons[`${_name}${_options.type}`] ||
+		customIcons[`${capitalizedString(_options.defaultName)}${_options.type}`];
 	return React.createElement(icon);
 };

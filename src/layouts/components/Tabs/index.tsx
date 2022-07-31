@@ -12,6 +12,7 @@ import "./index.less";
 
 const LayoutTabs = (props: any) => {
 	const { TabPane } = Tabs;
+	// const { pathname, search } = useLocation();
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const [activeValue, setActiveValue] = useState<string>(pathname);
@@ -28,6 +29,12 @@ const LayoutTabs = (props: any) => {
 	// add tabs
 	const addTabs = () => {
 		const route = searchRoute(pathname, routerArray);
+
+		// routerArray 中 path 可能存在 /:param 参数，
+		// if (/\/:/g.test(route.path as string)) {
+		// 	route.path = `${pathname}${search}`;
+		// }
+
 		let tabsList = JSON.parse(JSON.stringify(props.tabsList));
 		if (props.tabsList.every((item: any) => item.path !== route.path)) {
 			tabsList.push({ title: route.meta!.title, path: route.path, icon: route.icon });

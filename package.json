@@ -19,6 +19,7 @@
 		"commit:YX": "cd ../yx-env && npm run git:push -- --1=YX-Mansion"
 	},
 	"dependencies": {
+		"@daybyday/yx-react": "^1.0.0",
 		"antd": "^4.21.3",
 		"axios": "^0.27.2",
 		"echarts": "^5.3.3",
