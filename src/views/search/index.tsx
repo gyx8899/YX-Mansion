@@ -6,7 +6,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Input, Select } from "antd";
 import { addIcon } from "@/layouts/util";
 // import useClipBoard from "@/hooks/useClipboard";
-import { SEARCH_LIST, getSearchType } from "./config";
+import { SEARCH_LIST, SEARCH_SITES, getSearchType } from "./config";
 // import Link from "@/views/link";
 
 import "./index.less";
@@ -23,7 +23,7 @@ const AggregateSearch = () => {
 		const searchValue = inputRef?.current?.input?.value;
 		const url = `${selectRef.current.url}${encodeURIComponent(searchValue)}`;
 		if (searchValue !== "") {
-			if (selectRef.current.embeddable) {
+			if (!selectRef.current.embeddable) {
 				setIframeUrl(url);
 			} else {
 				window.open(url, "_blank");
@@ -86,6 +86,7 @@ const AggregateSearch = () => {
 				loading={isLoading}
 				onSearch={onSearch}
 			/>
+			{/* {SEARCH_LIST.concat(SEARCH_SITES).map(() => (<></>))} */}
 			{iFrameUrl && <iframe className="search-iframe" src={iFrameUrl} width="100%" height="100%" frameBorder="0" scrolling="" />}
 		</>
 	);
