@@ -15,7 +15,7 @@ const Link = () => {
 			{searchParams.has("url") && (
 				<iframe
 					className="link-iframe"
-					src={decodeURIComponent(searchParams.get("url"))}
+					src={decodeURIComponent(searchParams.get("url") as string)}
 					width="100%"
 					height="100%"
 					frameBorder="0"

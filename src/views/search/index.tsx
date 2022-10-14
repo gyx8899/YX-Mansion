@@ -3,10 +3,10 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useTitle } from "@daybyday/yx-react";
-import { Input, Select } from "antd";
+import { Input, Select, InputRef } from "antd";
 import { addIcon } from "@/layouts/util";
 // import useClipBoard from "@/hooks/useClipboard";
-import { SEARCH_LIST, SEARCH_SITES, getSearchType } from "./config";
+import { SEARCH_LIST, getSearchType } from "./config";
 // import Link from "@/views/link";
 
 import "./index.less";
@@ -21,19 +21,20 @@ const AggregateSearch = () => {
 	// useTitle("搜索聚合：集合各大搜索引擎，及重要技术论坛、社区等搜索接口，方便快速搜索结果。");
 	const openResult = useCallback(() => {
 		const searchValue = inputRef?.current?.input?.value;
-		const url = `${selectRef.current.url}${encodeURIComponent(searchValue)}`;
+		let url = "";
 		if (searchValue !== "") {
+			url = `${selectRef.current.url}${encodeURIComponent(searchValue as string)}`;
 			if (!selectRef.current.embeddable) {
-				setIframeUrl(url);
-			} else {
 				window.open(url, "_blank");
 				setIframeUrl("");
+			} else {
+				setIframeUrl(url);
 			}
 		} else {
 			setIframeUrl("");
 		}
 	}, []);
-	const onSearch = useCallback((value: string, event: Event) => {
+	const onSearch = useCallback((value: string, event: React.ChangeEvent<HTMLInputElement>) => {
 		console.log("onSearch: ", value, event);
 		setIsLoading(true);
 
@@ -59,9 +60,11 @@ const AggregateSearch = () => {
 		inputRef.current!.focus({
 			cursor: "start"
 		});
-		inputRef.current.input.onpaste = () => {
-			setTimeout(openResult, 200);
-		};
+		if (inputRef.current && inputRef.current.input) {
+			inputRef.current.input.onpaste = () => {
+				setTimeout(openResult, 200);
+			};
+		}
 	}, []);
 
 	const addOn = (
@@ -84,7 +87,8 @@ const AggregateSearch = () => {
 				enterButton="搜索一下"
 				size="large"
 				loading={isLoading}
-				onSearch={onSearch}
+				// onSearch={onSearch}
+				onSearch={(value, e) => onSearch(value, e as React.ChangeEvent<HTMLInputElement>)}
 			/>
 			{/* {SEARCH_LIST.concat(SEARCH_SITES).map(() => (<></>))} */}
 			{iFrameUrl && <iframe className="search-iframe" src={iFrameUrl} width="100%" height="100%" frameBorder="0" scrolling="" />}
